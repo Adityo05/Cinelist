@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineList.Inc - Produk Kami</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background-color: #f5f7fa;
+      flex-direction: column;
+    }
+
+    .main-container {
+      display: flex;
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #040404;
+      border-right: 1px solid #ddd;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      color: #FBC920;
+      margin-bottom: 30px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+    }
+
+    .sidebar li {
+      margin: 15px 0;
+      padding: 10px;
+      color: #FBC920;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .sidebar li.active,
+    .sidebar li:hover {
+      background-color: #e0f2f1;
+      color: #040404;
+      font-weight: bold;
+    }
+
+    .sidebar ul ul {
+      margin-left: 15px;
+    }
+
+    .sidebar ul ul li {
+      margin: 8px 0;
+      padding: 8px;
+      font-size: 14px;
+      background-color: rgba(251, 201, 32, 0.1);
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      background-color: #040404;
+      padding: 15px 20px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    .topbar h1 {
+      color: #FBC920;
+      margin-bottom: 5px;
+    }
+
+    .nav-container {
+      background-color: #040404;
+      padding: 0 20px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    .navigation-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .navigation-table th {
+      padding: 15px;
+      text-align: center;
+      background-color: #040404;
+      color: #FBC920;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .navigation-table th:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background-color: #FBC920;
+    }
+
+    .navigation-table th.active,
+    .navigation-table th:hover {
+      background-color: #FBC920;
+      color: #040404;
+    }
+
+    .brand {
+      display: flex;
+      align-items: top;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+
+    .content-section {
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      margin: 20px;
+      flex: 1;
+    }
+
+    .content-section h2 {
+      color: #040404;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    .product-category {
+      margin-bottom: 40px;
+    }
+
+    .product-category h3 {
+      color: #040404;
+      margin-bottom: 15px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .product-category h3::before {
+      content: "•";
+      color: #FBC920;
+      font-size: 30px;
+      margin-right: 10px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid #FBC920;
+    }
+
+    .product-card h4 {
+      color: #040404;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .product-card p {
+      color: #555;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .feature-list {
+      margin-top: 15px;
+      padding-left: 20px;
+    }
+
+    .feature-list li {
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    .highlight {
+      background-color: rgba(251, 201, 32, 0.1);
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="asset/cinelist.png" alt="Logo" class="logo">
+      </div>
+      <nav>
+        <ul>
+          <li>Home</li>
+          <li><a href="klien.html" style="text-decoration:none;color:inherit;">Daftar Klien</a></li>
+          <li><a href="artikel.html" style="text-decoration:none;color:inherit;">Artikel</a></li>
+          <li><a href="event.html" style="text-decoration:none;color:inherit;">Event Gallery</a></li>
+          <li><a href="login.html" style="text-decoration:none;color:inherit;">Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <div class="topbar">
+        <h1>CineList.Inc</h1>
+      </div>
+
+      <div class="nav-container">
+        <table class="navigation-table">
+          <tr>
+            <th><a href="profile.html" style="text-decoration:none;color:inherit;">Profile</a></th>
+            <th><a href="visi_misi.html" style="text-decoration:none;color:inherit;">Visi dan Misi</a></th>
+            <th class="active">Produk Kami</th>
+            <th><a href="kontak.html" style="text-decoration:none;color:inherit;">Kontak</a></th>
+            <th><a href="index.html" style="text-decoration:none;color:inherit;">About Us</a></th>
+          </tr>
+        </table>
+      </div>
+
+      <div class="content-section">
+        <h2>Produk & Layanan Kami</h2>
+        
+        <div class="product-category">
+          <h3>Solusi Manajemen Bioskop</h3>
+          <div class="product-grid">
+            <div class="product-card">
+              <h4>CineOS - Sistem Operasi Bioskop</h4>
+              <p>Platform terintegrasi untuk mengelola seluruh operasional bioskop dari satu dashboard.</p>
+              <ul class="feature-list">
+                <li>Manajemen penjualan tiket <span class="highlight">real-time</span></li>
+                <li>Sistem pembagian keuntungan otomatis</li>
+                <li>Analisis laporan harian/mingguan/bulanan</li>
+                <li>Integrasi dengan sistem POS makanan/minuman</li>
+              </ul>
+            </div>
+            
+            <div class="product-card">
+              <h4>CinePOS - Point of Sale</h4>
+              <p>Sistem kasir canggih khusus untuk bioskop dan concession stand.</p>
+              <ul class="feature-list">
+                <li>Pembayaran multi-metode (cashless, QRIS, e-wallet)</li>
+                <li>Manajemen stok bahan makanan/minuman</li>
+                <li>Promo dan bundle otomatis</li>
+                <li>Laporan penjualan per shift</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="product-category">
+          <h3>Teknologi Digital Cinema</h3>
+          <div class="product-grid">
+            <div class="product-card">
+              <h4>CineVision - Sistem Proyeksi Digital</h4>
+              <p>Solusi proyeksi 4K HDR dengan manajemen konten terpusat.</p>
+              <ul class="feature-list">
+                <li>Dukungan format <span class="highlight">Dolby Atmos</span> dan DTS:X</li>
+                <li>Sistem penyimpanan server terenkripsi</li>
+                <li>Update konten via cloud</li>
+                <li>Monitoring kesehatan perangkat real-time</li>
+              </ul>
+            </div>
+            
+            <div class="product-card">
+              <h4>CineSeat - Sistem Reservasi Canggih</h4>
+              <p>Manajemen tempat duduk berbasis AI dengan pengalaman pengguna premium.</p>
+              <ul class="feature-list">
+                <li>Pemetaan auditorium 3D</li>
+                <li>Rekomendasi tempat duduk optimal</li>
+                <li>Integrasi dengan mobile app pengguna</li>
+                <li>Sistem antrian virtual</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="product-category">
+          <h3>Layanan Professional</h3>
+          <div class="product-grid">
+            <div class="product-card">
+              <h4>CineConsult - Konsultasi Bisnis</h4>
+              <p>Layanan konsultasi khusus untuk pengembangan bisnis bioskop.</p>
+              <ul class="feature-list">
+                <li>Analisis lokasi dan potensi pasar</li>
+                <li>Desain tata letak auditorium</li>
+                <li>Strategi penetapan harga tiket</li>
+                <li>Program loyalitas pelanggan</li>
+              </ul>
+            </div>
+            
+            <div class="product-card">
+              <h4>CineCare - Layanan Maintenance</h4>
+              <p>Paket perawatan perangkat dan sistem berkala.</p>
+              <ul class="feature-list">
+                <li>Pemeliharaan proyektor digital</li>
+                <li>Update sistem berkala</li>
+                <li>Dukungan teknis 24/7</li>
+                <li>Pelatihan staf operasional</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

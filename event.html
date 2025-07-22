@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineList.Inc - Event Gallery</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background-color: #f5f7fa;
+      flex-direction: column;
+    }
+
+    .main-container {
+      display: flex;
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #040404;
+      border-right: 1px solid #ddd;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      color: #FBC920;
+      margin-bottom: 30px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+    }
+
+    .sidebar li {
+      margin: 15px 0;
+      padding: 10px;
+      color: #FBC920;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .sidebar li.active,
+    .sidebar li:hover {
+      background-color: #e0f2f1;
+      color: #040404;
+      font-weight: bold;
+    }
+
+    .sidebar ul ul {
+      margin-left: 15px;
+    }
+
+    .sidebar ul ul li {
+      margin: 8px 0;
+      padding: 8px;
+      font-size: 14px;
+      background-color: rgba(251, 201, 32, 0.1);
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      background-color: #040404;
+      padding: 15px 20px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    .topbar h1 {
+      color: #FBC920;
+      margin-bottom: 5px;
+    }
+
+    .nav-container {
+      background-color: #040404;
+      padding: 0 20px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    .navigation-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .navigation-table th {
+      padding: 15px;
+      text-align: center;
+      background-color: #040404;
+      color: #FBC920;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .navigation-table th:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background-color: #FBC920;
+    }
+
+    .navigation-table th.active,
+    .navigation-table th:hover {
+      background-color: #FBC920;
+      color: #040404;
+    }
+
+    .brand {
+      display: flex;
+      align-items: top;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+
+    .content-section {
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      margin: 20px;
+      flex: 1;
+    }
+
+    .content-section h2 {
+      color: #040404;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    /* Event Gallery Styles */
+    .event-filter {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .filter-btn {
+      padding: 8px 15px;
+      background-color: #f0f0f0;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .filter-btn.active {
+      background-color: #FBC920;
+      color: #040404;
+    }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .event-card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .event-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .event-date {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background-color: rgba(4, 4, 4, 0.8);
+      color: #FBC920;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .event-info {
+      padding: 15px;
+    }
+
+    .event-title {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #040404;
+    }
+
+    .event-location {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .event-desc {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .view-more {
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: #FBC920;
+      color: #040404;
+      border-radius: 4px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .view-more:hover {
+      background-color: #e0a800;
+    }
+  </style>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const user = localStorage.getItem('cinelist_current_user');
+      
+      if (!user) {
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="asset/cinelist.png" alt="Logo" class="logo">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html" style="text-decoration:none;color:inherit;">Home</a></li>
+          <li><a href="klien.html" style="text-decoration:none;color:inherit;">Daftar Klien</a></li>
+          <li><a href="Artikel.html" style="text-decoration:none;color:inherit;">Artikel</a></li>
+          <li class="active">Event Gallery</li>
+          <li><a href="login.html" style="text-decoration:none;color:inherit;">Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <div class="topbar">
+        <h1>CineList.Inc</h1>
+      </div>
+
+      <div class="nav-container">
+        <table class="navigation-table">
+          <tr>
+            <th><a href="profile.html" style="text-decoration:none;color:inherit;">Profile</a></th>
+            <th><a href="visi_misi.html" style="text-decoration:none;color:inherit;">Visi dan Misi</a></th>
+            <th><a href="produk_kami.html" style="text-decoration:none;color:inherit;">Produk Kami</a></th>
+            <th><a href="kontak.html" style="text-decoration:none;color:inherit;">Kontak</a></th>
+            <th><a href="index.html" style="text-decoration:none;color:inherit;">About Us</a></th>
+          </tr>
+        </table>
+      </div>
+
+      <div class="content-section">
+        <h2>Event Gallery</h2>
+        
+        <div class="event-filter">
+          <button class="filter-btn active">Semua</button>
+          <button class="filter-btn">Pameran</button>
+          <button class="filter-btn">Peluncuran Produk</button>
+          <button class="filter-btn">Konferensi</button>
+          <button class="filter-btn">Workshop</button>
+        </div>
+        
+        <div class="event-grid">
+          <!-- Event 1 -->
+          <div class="event-card">
+            <img src="asset/event1.jpg" alt="CineTech Expo" class="event-image">
+            <div class="event-date">15-17 Mar 2023</div>
+            <div class="event-info">
+              <h3 class="event-title">CineTech Expo 2023</h3>
+              <div class="event-location">
+                <span>📍</span>
+                <span>Jakarta Convention Center</span>
+              </div>
+              <p class="event-desc">Pameran teknologi bioskop terbesar di Asia Tenggara dengan 150+ exhibitor dan 10.000+ pengunjung.</p>
+              <a href="#" class="view-more">Lihat Detail</a>
+            </div>
+          </div>
+          
+          <!-- Event 2 -->
+          <div class="event-card">
+            <img src="asset/event2.jpg" alt="Product Launch" class="event-image">
+            <div class="event-date">28 Feb 2023</div>
+            <div class="event-info">
+              <h3 class="event-title">Peluncuran CineList XTreme</h3>
+              <div class="event-location">
+                <span>📍</span>
+                <span>Grand Ballroom, Hotel Majestic</span>
+              </div>
+              <p class="event-desc">Peluncuran sistem manajemen bioskop generasi terbaru dengan fitur augmented reality.</p>
+              <a href="#" class="view-more">Lihat Detail</a>
+            </div>
+          </div>
+          
+          <!-- Event 3 -->
+          <div class="event-card">
+            <img src="asset/event3.jpg" alt="Workshop" class="event-image">
+            <div class="event-date">10 Jan 2023</div>
+            <div class="event-info">
+              <h3 class="event-title">Workshop Digitalisasi Bioskop</h3>
+              <div class="event-location">
+                <span>📍</span>
+                <span>CineList Innovation Hub</span>
+              </div>
+              <p class="event-desc">Pelatihan intensif untuk operator bioskop dalam mengadopsi solusi digital CineList.Inc.</p>
+              <a href="#" class="view-more">Lihat Detail</a>
+            </div>
+          </div>
+          
+          <!-- Event 4 -->
+          <div class="event-card">
+            <img src="asset/event4.jpg" alt="Awards" class="event-image">
+            <div class="event-date">5 Des 2022</div>
+            <div class="event-info">
+              <h3 class="event-title">CineList Innovation Awards</h3>
+              <div class="event-location">
+                <span>📍</span>
+                <span>The Ritz-Carlton, Pacific Place</span>
+              </div>
+              <p class="event-desc">Penghargaan tahunan untuk inovasi terbaik dalam industri bioskop dan teknologi hiburan.</p>
+              <a href="#" class="view-more">Lihat Detail</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

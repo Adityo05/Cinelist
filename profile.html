@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineList.Inc - Visi & Misi</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background-color: #f5f7fa;
+      flex-direction: column;
+    }
+
+    .main-container {
+      display: flex;
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #040404;
+      border-right: 1px solid #ddd;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      color: #FBC920;
+      margin-bottom: 30px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+    }
+
+    .sidebar li {
+      margin: 15px 0;
+      padding: 10px;
+      color: #FBC920;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .sidebar li.active,
+    .sidebar li:hover {
+      background-color: #e0f2f1;
+      color: #040404;
+      font-weight: bold;
+    }
+
+    .sidebar ul ul {
+      margin-left: 15px;
+    }
+
+    .sidebar ul ul li {
+      margin: 8px 0;
+      padding: 8px;
+      font-size: 14px;
+      background-color: rgba(251, 201, 32, 0.1);
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      background-color: #040404;
+      padding: 15px 20px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    .topbar h1 {
+      color: #FBC920;
+      margin-bottom: 5px;
+    }
+
+    .nav-container {
+      background-color: #040404;
+      padding: 0 20px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    .navigation-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .navigation-table th {
+      padding: 15px;
+      text-align: center;
+      background-color: #040404;
+      color: #FBC920;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .navigation-table th:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background-color: #FBC920;
+    }
+
+    .navigation-table th.active,
+    .navigation-table th:hover {
+      background-color: #FBC920;
+      color: #040404;
+    }
+
+    .brand {
+      display: flex;
+      align-items: top;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+
+    .content-section {
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      margin: 20px;
+      flex: 1;
+    }
+
+    .content-section h2 {
+      color: #040404;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #FBC920;
+      text-align: center;
+    }
+
+    .vision-mission-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .vision-card, .mission-card {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid #FBC920;
+    }
+
+    .vision-card h3, .mission-card h3 {
+      color: #040404;
+      margin-bottom: 15px;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+    }
+
+    .vision-card h3::before {
+      content: "👁️";
+      margin-right: 10px;
+    }
+
+    .mission-card h3::before {
+      content: "🎯";
+      margin-right: 10px;
+    }
+
+    .vision-card p, .mission-card p {
+      color: #555;
+      line-height: 1.6;
+      font-size: 16px;
+      text-align: justify;
+    }
+
+    .mission-list {
+      margin-top: 15px;
+      padding-left: 20px;
+    }
+
+    .mission-list li {
+      margin-bottom: 12px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .highlight {
+      background-color: rgba(251, 201, 32, 0.1);
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="asset/cinelist.png" alt="Logo" class="logo">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html" style="text-decoration:none;color:inherit;">Home</a></li>
+          <li><a href="klien.html" style="text-decoration:none;color:inherit;">Daftar Klien</a></li>
+          <li><a href="artikel.html" style="text-decoration:none;color:inherit;">Artikel</a></li>
+          <li><a href="event.html" style="text-decoration:none;color:inherit;">Event Gallery</a></li>
+          <li><a href="login.html" style="text-decoration:none;color:inherit;">Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <div class="topbar">
+        <h1>CineList.Inc</h1>
+      </div>
+
+      <div class="nav-container">
+        <table class="navigation-table">
+          <tr>
+            <th class="active">Profile</a></th>
+            <th><a href="visi_misi.html" style="text-decoration:none;color:inherit;">Visi dan Misi</a></th>
+            <th><a href="produk_kami.html" style="text-decoration:none;color:inherit">Produk Kami</a></th>
+            <th><a href="kontak.html" style="text-decoration:none;color:inherit;">Kontak</a></th>
+            <th><a href="index.html" style="text-decoration:none;color:inherit;">About Us</a></th>
+          </tr>
+        </table>
+      </div>
+
+      <div class="content-section">
+        <h2>Profil Perusahaan</h2>
+        <p>CineList.Inc adalah perusahaan teknologi terkemuka yang berfokus pada pengembangan solusi inovatif untuk industri bioskop dan hiburan digital. Sejak didirikan pada tahun 2005, kami telah menjadi mitra terpercaya bagi lebih dari 500 bioskop di seluruh Asia Tenggara, termasuk jaringan bioskop besar seperti XXI, CGV, dan Cinepolis. Dengan kantor pusat di Jakarta dan cabang di Singapura serta Kuala Lumpur, kami menghadirkan platform terintegrasi yang mencakup sistem manajemen tiket, analisis penonton berbasis AI, dan teknologi proyeksi mutakhir.
+            Misi kami adalah mengubah pengalaman menonton film melalui inovasi digital, dengan dukungan tim ahli beranggotakan 150+ profesional di bidang teknologi dan industri film. Produk kami, seperti CineOS (sistem operasi bioskop) dan CineVision (proyeksi 4K HDR), telah meraih 15+ penghargaan industri. Nilai inti kami—inovasi, kolaborasi, dan kepuasan klien—menjadi fondasi dalam setiap solusi yang kami kembangkan untuk memajukan bisnis mitra dan industri perfilman secara keseluruhan.
+            Spesialisasi:
+            Sistem Manajemen Bioskop Terintegrasi
+            Teknologi Digital Cinema 4K & Audio Premium
+            Layanan Konsultasi dan Pemeliharaan
+            "Menghubungkan teknologi dengan kreativitas untuk masa depan hiburan yang lebih baik."
+        </p>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

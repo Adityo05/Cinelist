@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineList.Inc - Artikel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background-color: #f5f7fa;
+      flex-direction: column;
+    }
+
+    .main-container {
+      display: flex;
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #040404;
+      border-right: 1px solid #ddd;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      color: #FBC920;
+      margin-bottom: 30px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+    }
+
+    .sidebar li {
+      margin: 15px 0;
+      padding: 10px;
+      color: #FBC920;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .sidebar li.active,
+    .sidebar li:hover {
+      background-color: #e0f2f1;
+      color: #040404;
+      font-weight: bold;
+    }
+
+    .sidebar ul ul {
+      margin-left: 15px;
+    }
+
+    .sidebar ul ul li {
+      margin: 8px 0;
+      padding: 8px;
+      font-size: 14px;
+      background-color: rgba(251, 201, 32, 0.1);
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      background-color: #040404;
+      padding: 15px 20px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    .topbar h1 {
+      color: #FBC920;
+      margin-bottom: 5px;
+    }
+
+    .nav-container {
+      background-color: #040404;
+      padding: 0 20px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    .navigation-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .navigation-table th {
+      padding: 15px;
+      text-align: center;
+      background-color: #040404;
+      color: #FBC920;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .navigation-table th:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background-color: #FBC920;
+    }
+
+    .navigation-table th.active,
+    .navigation-table th:hover {
+      background-color: #FBC920;
+      color: #040404;
+    }
+
+    .brand {
+      display: flex;
+      align-items: top;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+
+    .content-section {
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      margin: 20px;
+      flex: 1;
+    }
+
+    .content-section h2 {
+      color: #040404;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    /* Artikel Styles */
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .article-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .article-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .article-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .article-content {
+      padding: 15px;
+    }
+
+    .article-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #040404;
+    }
+
+    .article-excerpt {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .article-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .read-more {
+      display: inline-block;
+      padding: 5px 10px;
+      background-color: #FBC920;
+      color: #040404;
+      border-radius: 4px;
+      font-size: 14px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    .read-more:hover {
+      background-color: #e0a800;
+    }
+  </style>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const user = localStorage.getItem('cinelist_current_user');
+      
+      if (!user) {
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="asset/cinelist.png" alt="Logo" class="logo">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html" style="text-decoration:none;color:inherit;">Home</a></li>
+          <li><a href="klien.html" style="text-decoration:none;color:inherit;">Daftar Klien</a></li>
+          <li class="active">Artikel</li>
+          <li><a href="event.html" style="text-decoration:none;color:inherit;">Event Gallery</a></li>
+          <li><a href="login.html" style="text-decoration:none;color:inherit;">Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <div class="topbar">
+        <h1>CineList.Inc</h1>
+      </div>
+
+      <div class="nav-container">
+        <table class="navigation-table">
+          <tr>
+            <th><a href="profile.html" style="text-decoration:none;color:inherit;">Profile</a></th>
+            <th><a href="visi_misi.html" style="text-decoration:none;color:inherit;">Visi dan Misi</a></th>
+            <th><a href="produk_kami.html" style="text-decoration:none;color:inherit;">Produk Kami</a></th>
+            <th><a href="kontak.html" style="text-decoration:none;color:inherit;">Kontak</a></th>
+            <th><a href="index.html" style="text-decoration:none;color:inherit;">About Us</a></th>
+          </tr>
+        </table>
+      </div>
+
+      <div class="content-section">
+        <h2>Artikel Terbaru</h2>
+        
+        <div class="article-grid">
+          <!-- Artikel 1 -->
+          <div class="article-card">
+            <img src="asset/article1.jpg" alt="Teknologi Bioskop" class="article-image">
+            <div class="article-content">
+              <h3 class="article-title">Revolusi Digital dalam Industri Bioskop</h3>
+              <p class="article-excerpt">Bagaimana teknologi CineList.Inc mengubah landscape bioskop tradisional menjadi pengalaman digital yang imersif...</p>
+              <div class="article-meta">
+                <span>15 Juni 2023</span>
+                <span>5 min read</span>
+              </div>
+              <a href="#" class="read-more">Baca Selengkapnya</a>
+            </div>
+          </div>
+          
+          <!-- Artikel 2 -->
+          <div class="article-card">
+            <img src="asset/article2.jpg" alt="Analisis Penonton" class="article-image">
+            <div class="article-content">
+              <h3 class="article-title">Memahami Perilaku Penonton dengan AI</h3>
+              <p class="article-excerpt">Sistem analisis penonton berbasis AI kami membantu bioskop memahami preferensi audiens dengan lebih baik...</p>
+              <div class="article-meta">
+                <span>2 Mei 2023</span>
+                <span>4 min read</span>
+              </div>
+              <a href="#" class="read-more">Baca Selengkapnya</a>
+            </div>
+          </div>
+          
+          <!-- Artikel 3 -->
+          <div class="article-card">
+            <img src="asset/article3.jpg" alt="Kemitraan" class="article-image">
+            <div class="article-content">
+              <h3 class="article-title">Kemitraan Strategis dengan Produser Film</h3>
+              <p class="article-excerpt">Kolaborasi CineList.Inc dengan rumah produksi film terkemuka untuk pengalaman menonton yang lebih baik...</p>
+              <div class="article-meta">
+                <span>20 April 2023</span>
+                <span>6 min read</span>
+              </div>
+              <a href="#" class="read-more">Baca Selengkapnya</a>
+            </div>
+          </div>
+          
+          <!-- Artikel 4 -->
+          <div class="article-card">
+            <img src="asset/article4.jpg" alt="Teknologi Baru" class="article-image">
+            <div class="article-content">
+              <h3 class="article-title">Inovasi Terbaru dalam Sistem Booking Online</h3>
+              <p class="article-excerpt">Platform booking tiket bioskop generasi terbaru dengan fitur-fitur revolusioner yang akan diluncurkan tahun ini...</p>
+              <div class="article-meta">
+                <span>5 Maret 2023</span>
+                <span>7 min read</span>
+              </div>
+              <a href="#" class="read-more">Baca Selengkapnya</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

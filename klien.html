@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineList.Inc - Daftar Klien</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background-color: #f5f7fa;
+      flex-direction: column;
+    }
+
+    .main-container {
+      display: flex;
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #040404;
+      border-right: 1px solid #ddd;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      color: #FBC920;
+      margin-bottom: 30px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+    }
+
+    .sidebar li {
+      margin: 15px 0;
+      padding: 10px;
+      color: #FBC920;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .sidebar li.active,
+    .sidebar li:hover {
+      background-color: #e0f2f1;
+      color: #040404;
+      font-weight: bold;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      background-color: #040404;
+      padding: 15px 20px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    .topbar h1 {
+      color: #FBC920;
+      margin-bottom: 5px;
+    }
+
+    .nav-container {
+      background-color: #040404;
+      padding: 0 20px;
+      border-bottom: 2px solid #FBC920;
+    }
+
+    .navigation-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .navigation-table th {
+      padding: 15px;
+      text-align: center;
+      background-color: #040404;
+      color: #FBC920;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .navigation-table th:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background-color: #FBC920;
+    }
+
+    .navigation-table th.active,
+    .navigation-table th:hover {
+      background-color: #FBC920;
+      color: #040404;
+    }
+
+    .brand {
+      display: flex;
+      align-items: top;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+
+    .content-section {
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      margin: 20px;
+      flex: 1;
+    }
+
+    .content-section h2 {
+      color: #040404;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #FBC920;
+      text-align: center;
+    }
+
+    /* Client List Styles */
+    .client-list-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .client-category {
+      margin-bottom: 30px;
+    }
+
+    .client-category h3 {
+      color: #040404;
+      background-color: rgba(251, 201, 32, 0.2);
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .client-category h3::before {
+      content: "★";
+      color: #FBC920;
+      margin-right: 10px;
+    }
+
+    .client-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .client-card {
+      background-color: #f9f9f9;
+      border-radius: 6px;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border-left: 3px solid #FBC920;
+      display: flex;
+      align-items: center;
+    }
+
+    .client-card::before {
+      content: "▶";
+      color: #FBC920;
+      margin-right: 10px;
+      font-size: 12px;
+    }
+
+    .client-card:hover {
+      background-color: #f0f0f0;
+      transform: translateY(-2px);
+      transition: all 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="asset/cinelist.png" alt="Logo" class="logo">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html" style="text-decoration:none;color:inherit;">Home</a></li>
+          <li class="active">Daftar Klien</li>
+          <li><a href="artikel.html" style="text-decoration:none;color:inherit;">Artikel</a></li>
+          <li><a href="event.html" style="text-decoration:none;color:inherit;">Event Gallery</a></li>
+          <li><a href="login.html" style="text-decoration:none;color:inherit;">Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <div class="topbar">
+        <h1>CineList.Inc</h1>
+      </div>
+
+      <div class="nav-container">
+        <table class="navigation-table">
+          <tr>
+            <th><a href="profile.html" style="text-decoration:none;color:inherit;">Profile</a></th>
+            <th><a href="visi_misi.html" style="text-decoration:none;color:inherit;">Visi dan Misi</a></th>
+            <th><a href="produk_kami.html" style="text-decoration:none;color:inherit;">Produk Kami</a></th>
+            <th><a href="kontak.html" style="text-decoration:none;color:inherit;">Kontak</a></th>
+            <th><a href="index.html" style="text-decoration:none;color:inherit;">About Us</a></th>
+          </tr>
+        </table>
+      </div>
+
+      <div class="content-section">
+        <h2>Daftar Klien Kami</h2>
+        
+        <div class="client-list-container">
+          <div class="client-category">
+            <h3>Bioskop Utama</h3>
+            <div class="client-grid">
+              <div class="client-card">XXI Cinema Group</div>
+              <div class="client-card">CGV Cinemas Indonesia</div>
+              <div class="client-card">Cinepolis Indonesia</div>
+              <div class="client-card">Cinema 21</div>
+              <div class="client-card">Flix Cinema</div>
+              <div class="client-card">New Star Cinema</div>
+            </div>
+          </div>
+          
+          <div class="client-category">
+            <h3>Bioskop Regional</h3>
+            <div class="client-grid">
+              <div class="client-card">Studio 1 Medan</div>
+              <div class="client-card">Bioskop Raya Bandung</div>
+              <div class="client-card">Platinum Cineplex Surabaya</div>
+              <div class="client-card">Bioskop Megah Semarang</div>
+              <div class="client-card">Sunny Cinema Bali</div>
+              <div class="client-card">Bioskop Bahari Makassar</div>
+            </div>
+          </div>
+          
+          <div class="client-category">
+            <h3>Klien Internasional</h3>
+            <div class="client-grid">
+              <div class="client-card">Golden Screen Cinemas (Malaysia)</div>
+              <div class="client-card">Shaw Theatres (Singapore)</div>
+              <div class="client-card">Major Cineplex (Thailand)</div>
+              <div class="client-card">SM Cinema (Philippines)</div>
+              <div class="client-card">Lotte Cinema (Vietnam)</div>
+            </div>
+          </div>
+          
+          <div class="client-category">
+            <h3>Mitra Event Khusus</h3>
+            <div class="client-grid">
+              <div class="client-card">Festival Film Indonesia</div>
+              <div class="client-card">Jogja-NETPAC Asian Film Festival</div>
+              <div class="client-card">Jakarta Film Week</div>
+              <div class="client-card">Bali International Film Festival</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

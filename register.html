@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineList.Inc - Register</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    
+    body {
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .register-container {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      width: 400px;
+      padding: 40px;
+    }
+    
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .logo img {
+      width: 120px;
+    }
+    
+    h2 {
+      color: #040404;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: bold;
+    }
+    
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #FBC920;
+      color: #040404;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #e0a800;
+    }
+    
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .login-link a {
+      color: #FBC920;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .message {
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      text-align: center;
+      display: none;
+    }
+    
+    .error {
+      background-color: #ffebee;
+      color: #c62828;
+    }
+    
+    .success {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <div class="logo">
+      <img src="cinelist.png" alt="CineList Logo">
+    </div>
+    
+    <h2>Buat Akun Baru</h2>
+    
+    <div id="message" class="message"></div>
+    
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="full_name">Nama Lengkap</label>
+        <input type="text" id="full_name" name="full_name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="company">Perusahaan</label>
+        <input type="text" id="company" name="company">
+      </div>
+      
+      <button type="submit">Daftar</button>
+    </form>
+    
+    <div class="login-link">
+      Sudah punya akun? <a href="login.html">Login disini</a>
+    </div>
+  </div>
+
+  <script>
+    // Inisialisasi database di localStorage jika belum ada
+    const initializeDatabase = () => {
+      if (!localStorage.getItem('cinelist_users')) {
+        const defaultUsers = [
+          {
+            username: 'admin',
+            email: 'admin@cinelist.com',
+            password: '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', // hash dari 'password'
+            full_name: 'Admin CineList',
+            company: 'CineList.Inc'
+          }
+        ];
+        localStorage.setItem('cinelist_users', JSON.stringify(defaultUsers));
+      }
+    };
+
+    // Tampilkan pesan
+    const showMessage = (text, type) => {
+      const messageEl = document.getElementById('message');
+      messageEl.textContent = text;
+      messageEl.className = `message ${type}`;
+      messageEl.style.display = 'block';
+      setTimeout(() => {
+        messageEl.style.display = 'none';
+      }, 5000);
+    };
+
+    // Fungsi hash SHA-256
+    async function sha256(input) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(input);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    // Handle register form
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const full_name = document.getElementById('full_name').value;
+      const company = document.getElementById('company').value;
+      
+      try {
+        // Validasi input
+        if (!username || !email || !password || !full_name) {
+          showMessage("Semua field wajib diisi kecuali perusahaan!", "error");
+          return;
+        }
+
+        // Hash password
+        const hashedPassword = await sha256(password);
+        
+        // Ambil data users dari localStorage
+        const users = JSON.parse(localStorage.getItem('cinelist_users')) || [];
+        
+        // Cek apakah username/email sudah ada
+        const existingUser = users.find(u => u.username === username || u.email === email);
+        
+        if (existingUser) {
+          showMessage("Username atau email sudah terdaftar!", "error");
+          return;
+        }
+        
+        // Tambahkan user baru
+        const newUser = {
+          username,
+          email,
+          password: hashedPassword,
+          full_name,
+          company: company || null
+        };
+        
+        users.push(newUser);
+        localStorage.setItem('cinelist_users', JSON.stringify(users));
+        
+        showMessage("Registrasi berhasil! Mengarahkan ke halaman login...", "success");
+        
+        // Reset form
+        document.getElementById('registerForm').reset();
+        
+        // Redirect ke login setelah 1.5 detik
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 1500);
+      } catch (e) {
+        console.error("Error:", e);
+        showMessage("Terjadi kesalahan saat registrasi", "error");
+      }
+    });
+
+    // Inisialisasi saat halaman dimuat
+    window.addEventListener('DOMContentLoaded', () => {
+      initializeDatabase();
+      
+    });
+  </script>
+</body>
+</html>
